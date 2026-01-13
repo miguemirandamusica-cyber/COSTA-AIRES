@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costa Aires - Montería</title>
+    <style>
+        :root { --azul: #004a99; --celeste: #007bff; --fondo: #eef2f7; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--fondo); color: #333; }
+        .app { max-width: 450px; margin: auto; background: white; min-height: 100vh; box-shadow: 0 0 25px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+        header { background: linear-gradient(135deg, var(--azul), var(--celeste)); color: white; padding: 35px 20px; text-align: center; border-radius: 0 0 40px 40px; }
+        .logo-box { width: 160px; height: 160px; background: white; border-radius: 50%; margin: 0 auto 15px; overflow: hidden; border: 5px solid white; box-shadow: 0 6px 15px rgba(0,0,0,0.2); }
+        .logo-box img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { margin: 0; font-size: 26px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
+        .content { padding: 20px; flex-grow: 1; }
+        .btn { display: flex; align-items: center; justify-content: center; width: 100%; margin-bottom: 15px; padding: 16px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; text-decoration: none; text-align: center; font-size: 16px; transition: 0.3s; box-sizing: border-box; }
+        .btn-call { background: var(--celeste); color: white; box-shadow: 0 4px 12px rgba(0,123,255,0.3); }
+        .btn-form { background: white; color: var(--azul); border: 2.5px solid var(--azul); }
+        .acc-item { margin-bottom: 12px; border: 1px solid #e1e8ed; border-radius: 12px; overflow: hidden; background: #fbfcfe; }
+        .acc-header { padding: 15px; cursor: pointer; font-weight: bold; display: flex; justify-content: space-between; align-items: center; color: var(--azul); }
+        .acc-content { display: none; padding: 15px; background: white; border-top: 1px solid #eee; }
+        .acc-content li { padding: 6px 0; font-size: 14px; list-style: none; }
+        .acc-content li::before { content: '❄️ '; }
+        #form-view { display: none; padding: 25px; }
+        label { font-size: 13px; font-weight: bold; color: var(--azul); }
+        input, select, textarea { width: 100%; padding: 12px; margin: 8px 0 18px 0; border: 1px solid #ccc; border-radius: 10px; }
+        .footer { text-align: center; padding: 25px; font-size: 12px; color: #888; background: #fcfcfc; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div id="home">
+            <header>
+                <div class="logo-box"><img src="https://i.ibb.co/yvfVXsF/Gemini-Generated-Image-6p9q5n6p9q5n6p9q.png" alt="Costa Aires Logo"></div>
+                <h1>COSTA AIRES</h1>
+                <p>📍 Montería · Córdoba</p>
+            </header>
+            <div class="content">
+                <a href="tel:+573000000000" class="btn btn-call">📞 LLAMAR TÉCNICO</a>
+                <button onclick="showForm()" class="btn btn-form">📅 AGENDAR SERVICIO / COTIZAR</button>
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggleAcc('auto')">🚗 Aire Automotriz <span>▼</span></div>
+                    <div id="auto" class="acc-content">
+                        <ul>
+                            <li>Reparación e Instalación</li>
+                            <li>Limpieza profunda y desinfección</li>
+                            <li>Eliminación de olores y mantenimiento</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="acc-item">
+                    <div class="acc-header" onclick="toggleAcc('home')">🏠 Hogar y Remodelación <span>▼</span></div>
+                    <div id="home-acc" class="acc-content">
+                        <ul>
+                            <li>Mantenimiento de Aires Residenciales</li>
+                            <li>Construcción y remodelación</li>
+                            <li>Trabajos eléctricos y pintura</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="form-view">
+            <h2 style="color:var(--azul)">Solicitud Técnica</h2>
+            <label>Nombre</label><input type="text" id="n">
+            <label>Teléfono</label><input type="number" id="t">
+            <label>Servicio</label>
+            <select id="s">
+                <option>Aire Automotriz</option>
+                <option>Aire Casa</option>
+                <option>Remodelación / Electricidad</option>
+            </select>
+            <label>Barrio</label><input type="text" id="u">
+            <label>Detalle</label><textarea id="f" rows="3"></textarea>
+            <button onclick="enviar()" id="send" class="btn btn-call" style="width:100%;">ENVIAR</button>
+            <p onclick="showHome()" style="text-align:center; cursor:pointer; text-decoration:underline;">← Volver</p>
+        </div>
+        <div class="footer">COSTA AIRES S.A.S © 2026</div>
+    </div>
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz37VihXHT89VL2sPGegc6J5JDcI-U2RZzX6wdNtg2xIw_4gm4-4ftj7bPYQkyV-eS9gg/exec";
+        function toggleAcc(id) {
+            let e = document.getElementById(id === 'auto' ? 'auto' : 'home-acc');
+            e.style.display = e.style.display === 'block' ? 'none' : 'block';
+        }
+        function showForm() { document.getElementById('home').style.display='none'; document.getElementById('form-view').style.display='block'; }
+        function showHome() { document.getElementById('home').style.display='block'; document.getElementById('form-view').style.display='none'; }
+        function enviar() {
+            const btn = document.getElementById('send');
+            const d = { nombre: document.getElementById('n').value, telefono: document.getElementById('t').value, tipo: document.getElementById('s').value, ubicacion: document.getElementById('u').value, falla: document.getElementById('f').value };
+            if(!d.nombre || !d.telefono) return alert("Completa los datos.");
+            btn.disabled = true; btn.innerText = "ENVIANDO...";
+            fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(d) })
+            .then(() => { alert("✅ ¡Enviado a Costa Aires!"); showHome(); })
+            .catch(() => alert("Error"))
+            .finally(() => { btn.disabled = false; btn.innerText = "ENVIAR"; });
+        }
+    </script>
+</body>
+</html>
